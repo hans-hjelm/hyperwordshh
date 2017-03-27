@@ -1,3 +1,11 @@
+## hyperwordshh
+This is a fork of hyperwords (https://bitbucket.org/omerlevy/hyperwords - see original README below) that I need in my other projects.
+Main differences for now:
+
+* Added setup.py to simplify installing.
+* Adapted (most of) the code to run under python3.
+* Changed the text normalization to be able to handle Unicode, not just ascii (important for non-English text).
+
 # hyperwords: Hyperparameter-Enabled Word Representations #
 
 hyperwords is a collection of scripts and programs for creating word representations, designed to facilitate academic
