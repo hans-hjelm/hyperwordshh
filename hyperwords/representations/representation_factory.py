@@ -1,5 +1,6 @@
 from representations.embedding import SVDEmbedding, EnsembleEmbedding, Embedding
 from representations.explicit import PositiveExplicit
+from representations.explicit_ng import PositiveExplicitNg
 
 
 def create_representation(args):
@@ -8,6 +9,7 @@ def create_representation(args):
     neg = int(args['--neg'])
     w_c = args['--w+c']
     eig = float(args['--eig'])
+    glen = int(args['--len'])
     
     if rep_type == 'PPMI':
         if w_c:
@@ -20,6 +22,9 @@ def create_representation(args):
             return EnsembleEmbedding(SVDEmbedding(path, False, eig, False), SVDEmbedding(path, False, eig, True), True)
         else:
             return SVDEmbedding(path, True, eig)
+
+    elif rep_type == 'PPMIng':
+        return PositiveExplicitNg(path, True, neg, glen)
         
     else:
         if w_c:

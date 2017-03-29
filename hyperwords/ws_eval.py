@@ -13,6 +13,7 @@ def main():
         --neg NUM    Number of negative samples; subtracts its log from PMI (only applicable to PPMI) [default: 1]
         --w+c        Use ensemble of word and context vectors (not applicable to PPMI)
         --eig NUM    Weighted exponent of the eigenvalue matrix (only applicable to SVD) [default: 0.5]
+        --len NUM    Length of ngraph if used [default 5]
     """)
     
     data = read_test_set(args['<task_path>'])

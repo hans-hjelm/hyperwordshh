@@ -82,8 +82,8 @@ class EnsembleEmbedding(Embedding):
         """
         self.dim = emb1.dim
         
-        vocab1 = emb1.wi.viewkeys()
-        vocab2 = emb2.wi.viewkeys()
+        vocab1 = emb1.wi.keys()
+        vocab2 = emb2.wi.keys()
         joint_vocab = list(vocab1 & vocab2)
         only_vocab1 = list(vocab1 - vocab2)
         only_vocab2 = list(vocab2 - vocab1)
