@@ -1,4 +1,5 @@
 from representations.embedding import SVDEmbedding, EnsembleEmbedding, Embedding
+from representations.embedding_ng import SVDEmbeddingNg
 from representations.explicit import PositiveExplicit
 from representations.explicit_ng import PositiveExplicitNg
 
@@ -25,6 +26,9 @@ def create_representation(args):
 
     elif rep_type == 'PPMIng':
         return PositiveExplicitNg(path, True, neg, glen)
+
+    elif rep_type == 'SVDng':
+        return SVDEmbeddingNg(path, True, eig, glen)
         
     else:
         if w_c:

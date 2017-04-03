@@ -1,9 +1,11 @@
 import heapq
+import math
 
-from scipy.sparse import dok_matrix, csr_matrix
 import numpy as np
+from scipy.sparse import dok_matrix, csr_matrix
+from sklearn import preprocessing
 
-from representations.matrix_serializer import load_vocabulary, load_matrix
+from representations.matrix_serializer import load_count_vocabulary, load_vocabulary, load_matrix
 
 
 class ExplicitNg:
@@ -14,6 +16,7 @@ class ExplicitNg:
     def __init__(self, path, normalize=True, glen=5):
         self.wi, self.iw = load_vocabulary(path + '.words.vocab')
         self.ci, self.ic = load_vocabulary(path + '.contexts.vocab')
+        self.sz, self.ng_freqs = self.load_counts(path)
         self.m = load_matrix(path)
         self.m.data = np.log(self.m.data)
         self.normal = normalize
@@ -28,21 +31,27 @@ class ExplicitNg:
         normalizer = dok_matrix((len(norm), len(norm)))
         normalizer.setdiag(norm)
         self.m = normalizer.tocsr().dot(self.m)
-    
+
+    def load_counts(self, path):
+        count_path = path[:path.rfind('/') + 1] + 'counts.words.vocab'
+        ng_freqs = load_count_vocabulary(count_path)
+        sz = sum(int(v) for v in ng_freqs.values())
+        return sz, ng_freqs
+
     def represent(self, w):
-        # TODO: normalize to unit length and weight by self information
         representation = None
         count = 0
         for i in range(0, len(w) + 1 - self.glen):
             ngraph = w[i:i + self.glen]
             if ngraph in self.wi:
+                ngraph_si = math.log2(1/(int(self.ng_freqs.get(ngraph))/self.sz))
                 if count > 0:
-                    representation += self.m[self.wi[ngraph], :]
+                    representation += self.m[self.wi[ngraph], :] * ngraph_si
                 else:
-                    representation  = self.m[self.wi[ngraph], :]
+                    representation  = self.m[self.wi[ngraph], :] * ngraph_si
                 count += 1
         if count > 0:
-            representation /= count
+            representation = preprocessing.normalize(representation, norm='l2')
             return representation
         else:
             return csr_matrix((1, len(self.ic)))
@@ -53,20 +62,6 @@ class ExplicitNg:
         """
         return self.represent(w1).dot(self.represent(w2).T)[0, 0]
     
-    def closest_contexts(self, w, n=10):
-        """
-        Assumes the vectors have been normalized.
-        """
-        scores = self.represent(w)
-        return heapq.nlargest(n, zip(scores.data, [self.ic[i] for i in scores.indices]))
-    
-    def closest(self, w, n=10):
-        """
-        Assumes the vectors have been normalized.
-        """
-        scores = self.m.dot(self.represent(w).T).T.tocsr()
-        return heapq.nlargest(n, zip(scores.data, [self.iw[i] for i in scores.indices]))
-
 
 class PositiveExplicitNg(ExplicitNg):
     """

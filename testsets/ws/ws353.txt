@@ -1,3 +1,4 @@
+stock	CD	1.31
 love	sex	6.77
 tiger	cat	7.35
 tiger	tiger	10.00
@@ -20,7 +21,6 @@ smart	stupid	5.81
 company	stock	7.08
 stock	market	8.08
 stock	phone	1.62
-stock	CD	1.31
 stock	jaguar	0.92
 stock	egg	1.81
 fertility	egg	6.69
