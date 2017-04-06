@@ -61,11 +61,11 @@ def main():
                         end = len_tokens
                     
                     if pos:
-                        output = '\n'.join([row for row in [tok + '\t' + tokens[j] + '_' + str(j - i) for j in range(start, end) if j != i and tokens[j] is not None] if len(row) > 0]).strip()
+                        output = '\n\t'.join([row for row in [tok + '\t' + tokens[j] + '_' + str(j - i) for j in range(start, end) if j != i and tokens[j] is not None] if len(row) > 0]).strip()
                     else:
-                        output = '\n'.join([row for row in [tok + '\t' + tokens[j] for j in range(start, end) if j != i and tokens[j] is not None] if len(row) > 0]).strip()
+                        output = '\n\t'.join([row for row in [tok + '\t' + tokens[j] for j in range(start, end) if j != i and tokens[j] is not None] if len(row) > 0]).strip()
                     if len(output) > 0:
-                        print(output)
+                        print('\t' + output)
 
 
 def read_vocab(corpus_file, thr):

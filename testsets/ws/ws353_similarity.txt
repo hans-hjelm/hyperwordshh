@@ -1,3 +1,4 @@
+money	cash	9.15
 tiger	cat	7.35
 tiger	tiger	10.00
 plane	car	5.77
@@ -11,7 +12,6 @@ professor	doctor	6.62
 student	professor	6.81
 smart	stupid	5.81
 wood	forest	7.73
-money	cash	9.15
 king	queen	8.58
 king	rook	5.92
 bishop	rabbi	6.69

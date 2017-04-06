@@ -44,7 +44,7 @@ class EmbeddingNg:
                     representation = self.m[self.wi[ngraph], :] * ngraph_si
                 count += 1
         if count > 0:
-            representation /= math.sqrt(sum(representation ** 2))
+            representation = (preprocessing.normalize([representation], norm='l2'))[0]
             return representation
         else:
             return np.zeros(self.dim)
@@ -53,7 +53,7 @@ class EmbeddingNg:
         """
         Assumes the vectors have been normalized.
         """
-        return np.dot(self.represent(w1), self.represent(w2))
+        return np.dot(self.represent(' ' + w1 + ' '), self.represent(' ' + w2 + ' '))
 
 
 class SVDEmbeddingNg(EmbeddingNg):

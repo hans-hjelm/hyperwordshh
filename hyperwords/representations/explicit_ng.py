@@ -60,7 +60,7 @@ class ExplicitNg:
         """
         Assumes the vectors have been normalized.
         """
-        return self.represent(w1).dot(self.represent(w2).T)[0, 0]
+        return self.represent(' ' + w1 + ' ').dot(self.represent(' ' + w2 + ' ').T)[0, 0]
     
 
 class PositiveExplicitNg(ExplicitNg):

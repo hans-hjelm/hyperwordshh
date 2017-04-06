@@ -10,7 +10,8 @@ def create_representation(args):
     neg = int(args['--neg'])
     w_c = args['--w+c']
     eig = float(args['--eig'])
-    glen = int(args['--len'])
+    if args['--len']:
+        glen = int(args['--len'])
     
     if rep_type == 'PPMI':
         if w_c:
