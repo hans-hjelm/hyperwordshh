@@ -3,7 +3,7 @@ import heapq
 from scipy.sparse import dok_matrix, csr_matrix
 import numpy as np
 
-from representations.matrix_serializer import load_vocabulary, load_matrix
+from hyperwords.representations.matrix_serializer import load_count_vocabulary, load_vocabulary, load_matrix
 
 
 class Explicit:
@@ -14,6 +14,7 @@ class Explicit:
     def __init__(self, path, normalize=True):
         self.wi, self.iw = load_vocabulary(path + '.words.vocab')
         self.ci, self.ic = load_vocabulary(path + '.contexts.vocab')
+        self.sz, self.word_freqs = self.load_counts(path)
         self.m = load_matrix(path)
         self.m.data = np.log(self.m.data)
         self.normal = normalize
@@ -28,6 +29,15 @@ class Explicit:
         normalizer.setdiag(norm)
         self.m = normalizer.tocsr().dot(self.m)
     
+    def load_counts(self, path):
+        count_path = path[:path.rfind('/') + 1] + 'counts.words.vocab'
+        ng_freqs = load_count_vocabulary(count_path)
+        sz = sum(int(v) for v in ng_freqs.values())
+        return sz, ng_freqs
+
+    def get_word_freq(self, word):
+        self.word_freqs.get(word, default=0)
+
     def represent(self, w):
         if w in self.wi:
             return self.m[self.wi[w], :]

@@ -38,6 +38,8 @@ class EmbeddingNg:
             ngraph = w[i:i + self.glen]
             if ngraph in self.wi:
                 ngraph_si = math.log2(1/(int(self.ng_freqs.get(ngraph))/self.sz))
+                if math.isnan(self.m[self.wi[ngraph], :][0]):
+                    continue
                 if count > 0:
                     representation += self.m[self.wi[ngraph], :] * ngraph_si
                 else:

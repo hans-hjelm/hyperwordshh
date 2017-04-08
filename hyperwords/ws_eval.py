@@ -1,9 +1,8 @@
 from docopt import docopt
 
-import numpy as np
 from scipy.stats.stats import spearmanr
 
-from representations.representation_factory import create_representation
+from hyperwords.representations.representation_factory import create_representation
 
 
 def main():
@@ -36,9 +35,9 @@ def read_test_set(path):
 def evaluate(representation, data):
     results = []
     for (x, y), sim in data:
-        print(x, y, sim, end=' ')
+        #print(x, y, sim, end=' ')
         mysim = representation.similarity(x, y)
-        print(mysim)
+        #print(mysim)
         results.append((mysim, sim))
     actual, expected = zip(*results)
     return spearmanr(actual, expected)[0]

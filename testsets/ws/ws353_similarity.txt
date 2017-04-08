@@ -1,3 +1,4 @@
+bishop	rabbi	6.69
 money	cash	9.15
 tiger	cat	7.35
 tiger	tiger	10.00
@@ -14,7 +15,6 @@ smart	stupid	5.81
 wood	forest	7.73
 king	queen	8.58
 king	rook	5.92
-bishop	rabbi	6.69
 fuck	sex	9.44
 football	soccer	9.03
 football	basketball	6.81
