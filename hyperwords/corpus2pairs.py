@@ -70,7 +70,7 @@ def main():
 
 def read_vocab(corpus_file, thr):
     vocab = Counter()
-    pattern = re.compile('[^\w\s]+', re.UNICODE)
+    pattern = re.compile('[^\w\s#]+', re.UNICODE)
     with open(corpus_file) as f:
         for line in f:
             line = pattern.sub('', line)
