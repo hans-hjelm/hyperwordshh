@@ -47,14 +47,14 @@ def main():
         svd2text_opts.append('--w+c')
     svd2text_opts.append('--eig ' + args['--eig'])
 
-    print '@'.join([
+    print('@'.join([
         corpus,
         output_dir,
         ' '.join(corpus2pairs_opts),
         ' '.join(counts2pmi_opts),
         ' '.join(pmi2svd_opts),
         ' '.join(svd2text_opts)
-    ])
+    ]))
 
 
 if __name__ == '__main__':

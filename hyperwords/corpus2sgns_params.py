@@ -45,13 +45,13 @@ def main():
     if args['--w+c']:
         sgns2text_opts.append('--w+c')
 
-    print '@'.join([
+    print('@'.join([
         corpus,
         output_dir,
         ' '.join(corpus2pairs_opts),
         ' '.join(word2vecf_opts),
         ' '.join(sgns2text_opts)
-    ])
+    ]))
 
 
 if __name__ == '__main__':
